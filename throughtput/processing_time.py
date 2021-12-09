@@ -25,7 +25,7 @@ def verifyBlock(chain, block):
     return t
 
 
-def fullReplicationEpoch (nShards, nNodes, nUShard, sparsity, chainLength, initBalance):
+def existingBlockchainEpoch (nShards, nNodes, nUShard, sparsity, chainLength, initBalance):
     initChain = np.vstack([np.zeros((1,nUShard)), \
                             initBalance *np.ones((1,nUShard))])
     
@@ -41,7 +41,7 @@ def fullReplicationEpoch (nShards, nNodes, nUShard, sparsity, chainLength, initB
     return np.max(tVerify), np.median(tVerify), np.mean(tVerify)
 
 
-def simpleShardingEpoch (nShards, nNodes, nUShard, sparsity, chainLength, initBalance):
+def shardedBlockchainEpoch (nShards, nNodes, nUShard, sparsity, chainLength, initBalance):
     tVerifyMax = []
     tVerifyMedian = []
     tVerifyMean = []
@@ -49,7 +49,7 @@ def simpleShardingEpoch (nShards, nNodes, nUShard, sparsity, chainLength, initBa
 
     for k in range(nShards):
         tMax, tMedian, tMean = \
-            fullReplicationEpoch(1, nRep, nUShard, sparsity,
+            existingBlockchainEpoch(1, nRep, nUShard, sparsity,
                                 chainLength, initBalance)
         
         tVerifyMax.append(tMax)

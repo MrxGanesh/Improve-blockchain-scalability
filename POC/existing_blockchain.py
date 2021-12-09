@@ -130,14 +130,14 @@ def plots(file):
     plt.ylabel('Time (ms)')
     plt.grid()
     plt.legend(loc='best')
-    plt.title('Full Replication')
+    plt.title('Existing Blockchain')
     plt.xlim((0, None))
     plt.ylim((0, None))
     plt.tight_layout()
     plt.show()
 
 
-def fullReplication(nNodes, nShards, nUShard, sparsity, nEpochs, initBalance):
+def existingBlockchain(nNodes, nShards, nUShard, sparsity, nEpochs, initBalance):
 
     #initiate blockchain system
     chains = InitiateChain(nShards, nUShard, initBalance)
@@ -165,9 +165,8 @@ def fullReplication(nNodes, nShards, nUShard, sparsity, nEpochs, initBalance):
     result['voting time'] = tVote
     result['updating time'] = tUpdate
 
-    file = 'full_replication_N_' + str(nNodes) + '_K_' +\
-            str(nShards) + '_M_' + str(nUShard) + '_s_' +\
-            str(sparsity) + '_' + str(int(time.time())) + '.pickle'
+    file = 'existing_blockhain_N_' + str(nNodes) + '_K_' +\
+            str(nShards) + '_M_' + str(nUShard) + '.pickle'
     
     with open(file, 'wb') as handle:
         pickle.dump(result, handle)

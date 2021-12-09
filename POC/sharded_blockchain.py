@@ -3,9 +3,9 @@ import pickle
 import time
 import matplotlib.pyplot as plt
 
-from full_Replication import fullReplication
+from existing_blockchain import existingBlockchain
 
-def simpleSharding(nNodes, nShards, nUShard, sparsity, nEpochs, initBalance):
+def shardedBlockchain(nNodes, nShards, nUShard, sparsity, nEpochs, initBalance):
     
     # nNodes must be a multiple of nShards
     assert nNodes % nShards == 0
@@ -19,7 +19,7 @@ def simpleSharding(nNodes, nShards, nUShard, sparsity, nEpochs, initBalance):
         print()
         print("Processing Shard:", str(k))
         print()
-        tvr, tvo, tup, _ = fullReplication(nNodes=nRep, nShards=1, nUShard=nUShard,sparsity=sparsity,  
+        tvr, tvo, tup, _ = existingBlockchain(nNodes=nRep, nShards=1, nUShard=nUShard,sparsity=sparsity,  
                                            nEpochs=nEpochs, initBalance=initBalance)
         
         tVerify.append(tvr)
@@ -38,9 +38,8 @@ def simpleSharding(nNodes, nShards, nUShard, sparsity, nEpochs, initBalance):
     result['verification time'] = tVerify
     result['voting time'] = tVote
     result['updating time'] = tUpdate
-    file = 'simple_sharding_N_' + str(nNodes) + '_K_' +\
-               str(nShards) + '_M_' + str(nUShard) + '_s_' +\
-               str(sparsity) + '_' + str(int(time.time())) + '.pickle'
+    file = 'sharded_blockchain_N_' + str(nNodes) + '_K_' +\
+               str(nShards) + '_M_' + str(nUShard) + '.pickle'
     with open(file, 'wb') as handle:
         pickle.dump(result, handle)
 
@@ -57,10 +56,10 @@ def plots(file):
     plt.ylabel('Time (ms)')
     plt.grid()
     plt.legend(loc='best')
-    plt.title('Simple Sharding')
+    plt.title('Sharded Blockchain')
     plt.xlim((0, None))
     plt.ylim((0, None))
     plt.tight_layout()
-    plt.show()
+    plt.savefig('shardedblockchain.png')
 
 # unitTests()
